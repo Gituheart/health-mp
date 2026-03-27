@@ -1,0 +1,65 @@
+<view class="container">
+  <!-- 顶部横幅 -->
+  <view class="hero">
+    <text class="greeting">{{greeting}}，{{nickname}}</text>
+    <text class="hero-sub">{{today}}</text>
+  </view>
+
+  <!-- 今日数据 -->
+  <view class="stats-row">
+    <view class="stat-card">
+      <text class="stat-num">{{todayCalories}}</text>
+      <text class="stat-label">千卡</text>
+    </view>
+    <view class="stat-card">
+      <text class="stat-num">{{todayCount}}</text>
+      <text class="stat-label">次打卡</text>
+    </view>
+    <view class="stat-card">
+      <text class="stat-num">{{todayMinutes}}</text>
+      <text class="stat-label">分钟</text>
+    </view>
+  </view>
+
+  <!-- 健康评分 -->
+  <view class="card health-card">
+    <text class="card-title">健康评分</text>
+    <view class="score-area">
+      <view class="score-ring" style="border-color: {{healthColor}};">
+        <text class="score-num" style="color: {{healthColor}};">{{healthScore}}</text>
+        <text class="score-unit">分</text>
+      </view>
+      <view class="score-detail">
+        <text class="score-level" style="color: {{healthColor}};">{{healthLevel}}</text>
+        <view class="score-row" wx:if="{{hasHeight}}">
+          <text class="score-label">BMI</text>
+          <text class="score-value">{{bmi}}（{{bmiLabel}}）</text>
+        </view>
+        <view class="score-row" wx:if="{{!hasHeight}}">
+          <text class="score-hint">填写身高可获得 BMI 评估</text>
+        </view>
+        <view class="score-row">
+          <text class="score-label">本周运动</text>
+          <text class="score-value">{{weekCalories}} 千卡</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 本周概览 -->
+  <view class="card week-card">
+    <text class="card-title">本周概览</text>
+    <view class="week-bar">
+      <view class="day-col" wx:for="{{weekDays}}" wx:key="day">
+        <view class="bar-bg">
+          <view class="bar" style="height: {{item.height}}rpx;"></view>
+        </view>
+        <text class="day-label {{item.isToday ? 'today' : ''}}">{{item.day}}</text>
+      </view>
+    </view>
+    <view class="week-summary">
+      <text class="week-total">{{weekCalories}}</text>
+      <text class="week-unit">千卡 本周累计</text>
+    </view>
+  </view>
+</view>
