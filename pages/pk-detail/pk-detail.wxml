@@ -1,0 +1,72 @@
+<view class="container">
+  <!-- 首次加载 -->
+  <view class="loading" wx:if="{{!inited}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{inited}}">
+    <!-- 群组信息（始终可见） -->
+    <view class="group-header-card">
+      <view class="group-top">
+        <text class="group-name">{{group.name}}</text>
+        <text class="member-count">{{group.members.length}} 人</text>
+      </view>
+      <view class="group-actions">
+        <text class="copy-id" bindtap="copyGroupId">复制群 ID</text>
+      </view>
+    </view>
+
+    <!-- 周期切换（始终可见） -->
+    <view class="period-tabs">
+      <view class="period-tab {{period === 'week' ? 'active' : ''}}" bindtap="switchPeriod" data-period="week">
+        <text class="period-label">本周</text>
+      </view>
+      <view class="period-tab {{period === 'month' ? 'active' : ''}}" bindtap="switchPeriod" data-period="month">
+        <text class="period-label">本月</text>
+      </view>
+    </view>
+
+    <text class="period-range">{{startDate}} ~ {{endDate}}</text>
+
+    <!-- 排行榜区域 -->
+    <view class="leaderboard {{refreshing ? 'is-refreshing' : ''}}">
+      <view class="leaderboard-list">
+        <view
+          class="rank-item {{item.openid === currentOpenid ? 'is-me' : ''}}"
+          wx:for="{{leaderboard}}"
+          wx:key="openid"
+        >
+          <view class="rank-num">
+            <text wx:if="{{item.medal}}" class="rank-medal">{{item.medal}}</text>
+            <text wx:else class="rank-number">{{item.rank}}</text>
+          </view>
+
+          <view class="rank-user">
+            <view class="rank-avatar">{{item.nickname[0] || '?'}}</view>
+            <view class="rank-info">
+              <text class="rank-name">{{item.nickname}}</text>
+              <text class="rank-me-tag" wx:if="{{item.openid === currentOpenid}}">我</text>
+            </view>
+          </view>
+
+          <view class="rank-stats">
+            <text class="rank-cal">{{item.calories}} 千卡</text>
+            <text class="rank-days">打卡 {{item.checkinDays}} 天</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="empty-rank" wx:if="{{leaderboard.length === 0 && !refreshing}}">
+        <text class="empty-rank-text">暂无数据，快去打卡吧！</text>
+      </view>
+    </view>
+
+    <!-- 邀请按钮 -->
+    <button class="invite-btn" open-type="share">邀请家人加入</button>
+
+    <!-- 退出群 -->
+    <view class="quit-row" bindtap="quitGroup">
+      <text class="quit-text">退出家庭群</text>
+    </view>
+  </block>
+</view>
