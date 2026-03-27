@@ -1,0 +1,43 @@
+<view class="container">
+  <text class="page-title">体检报告</text>
+  <text class="page-desc">上传体检报告，AI 智能分析</text>
+
+  <!-- 上传区域 -->
+  <view class="upload-area" bindtap="chooseImages">
+    <view class="upload-icon">+</view>
+    <text class="upload-text">拍照或从相册选择</text>
+    <text class="upload-hint">支持多张图片</text>
+  </view>
+
+  <!-- 已选图片预览 -->
+  <view class="preview-list" wx:if="{{tempImages.length > 0}}">
+    <view class="preview-item" wx:for="{{tempImages}}" wx:key="*this">
+      <image class="preview-img" src="{{item}}" mode="aspectFill" />
+      <view class="preview-del" bindtap="removeImage" data-index="{{index}}">x</view>
+    </view>
+    <view class="preview-add" bindtap="chooseImages">+</view>
+  </view>
+
+  <!-- 分析按钮 -->
+  <view class="submit-btn {{tempImages.length === 0 ? 'disabled' : ''}}" bindtap="submitReport" wx:if="{{tempImages.length > 0}}">
+    <text class="submit-text">{{analyzing ? '分析中，请稍候...' : '开始 AI 分析'}}</text>
+  </view>
+
+  <!-- 历史报告 -->
+  <view class="section" wx:if="{{reports.length > 0}}">
+    <text class="section-title">历史报告</text>
+    <view class="report-item" wx:for="{{reports}}" wx:key="_id" bindtap="viewReport" data-id="{{item._id}}">
+      <view class="report-left">
+        <text class="report-date">{{item.dateStr}}</text>
+        <text class="report-count">{{item.image_urls.length}} 张图片</text>
+      </view>
+      <text class="report-arrow">{{arrow}}</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{reports.length === 0 && tempImages.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无报告，点击上方上传</text>
+  </view>
+</view>
