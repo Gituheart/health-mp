@@ -1,0 +1,87 @@
+<view class="container">
+  <!-- 首次加载 -->
+  <view class="loading" wx:if="{{!inited}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{inited}}">
+
+    <!-- ========== 无群状态：大块上下结构 ========== -->
+    <block wx:if="{{!hasGroup}}">
+      <text class="page-title">家庭群</text>
+
+      <view class="empty-hero">
+        <text class="hero-icon">👨‍👩‍👧‍👦</text>
+        <text class="hero-text">和家人一起运动，互相监督打卡</text>
+      </view>
+
+      <view class="big-action-col">
+        <view class="big-action-btn create" bindtap="createGroup">
+          <text class="big-action-icon">+</text>
+          <text class="big-action-title">创建家庭群</text>
+          <text class="big-action-desc">创建后分享给家人加入</text>
+        </view>
+        <view class="big-action-btn join" bindtap="showJoinModal">
+          <text class="big-action-icon">{{arrow}}</text>
+          <text class="big-action-title">加入家庭群</text>
+          <text class="big-action-desc">输入群 ID 加入已有群组</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- ========== 有群状态 ========== -->
+    <block wx:if="{{hasGroup}}">
+      <text class="page-title">家庭群</text>
+
+      <!-- 顶部小按钮：左右结构 -->
+      <view class="small-action-row">
+        <view class="small-action-btn create" bindtap="createGroup">
+          <text class="small-action-icon">+</text>
+          <text class="small-action-label">创建群</text>
+        </view>
+        <view class="small-action-btn join" bindtap="showJoinModal">
+          <text class="small-action-icon">{{arrow}}</text>
+          <text class="small-action-label">加入群</text>
+        </view>
+      </view>
+
+      <!-- 分享提示 -->
+      <view class="share-tip" wx:if="{{showShareTip}}">
+        <text class="share-tip-text">点击群卡片的「邀请」按钮分享给家人</text>
+      </view>
+
+      <!-- 群列表 -->
+      <view class="section">
+        <text class="section-title">我的家庭群</text>
+        <view class="group-card" wx:for="{{myGroups}}" wx:key="_id" bindtap="viewGroup" data-id="{{item._id}}">
+          <view class="group-header">
+            <text class="group-name">{{item.name}}</text>
+            <text class="group-members">{{item.members.length}} 人</text>
+          </view>
+          <view class="group-footer">
+            <text class="group-arrow">查看排行 {{arrow}}</text>
+            <button
+              class="group-share-btn"
+              open-type="share"
+              data-group-id="{{item._id}}"
+              data-group-name="{{item.name}}"
+              catchtap="shareGroup"
+            >邀请</button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <!-- 加入弹窗 -->
+  <view class="modal-mask" wx:if="{{showJoinModal}}" bindtap="hideJoinModal">
+    <view class="modal-content" catchtap="">
+      <text class="modal-title">加入家庭群</text>
+      <input class="modal-input" placeholder="输入群 ID" value="{{joinGroupId}}" bindinput="onJoinIdInput" />
+      <view class="modal-actions">
+        <view class="modal-btn cancel" bindtap="hideJoinModal">取消</view>
+        <view class="modal-btn confirm" bindtap="joinGroup">加入</view>
+      </view>
+    </view>
+  </view>
+</view>
