@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="header">
+    <text class="title">{{isEdit ? '编辑信息' : '欢迎加入'}}</text>
+    <text class="title-green" wx:if="{{!isEdit}}">柳活力周</text>
+    <text class="desc">{{isEdit ? '修改你的基本信息' : '请填写基本信息，方便记录健康数据'}}</text>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="form-label">昵称</text>
+      <input class="form-input" value="{{nickname}}" placeholder="请输入昵称" placeholder-style="color: rgba(255,255,255,0.3);" bindinput="onNicknameInput" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">年龄</text>
+      <input class="form-input" value="{{age}}" type="number" placeholder="请输入年龄" placeholder-style="color: rgba(255,255,255,0.3);" bindinput="onAgeInput" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">性别</text>
+      <view class="gender-row">
+        <view class="gender-btn {{gender === 'male' ? 'active' : ''}}" bindtap="onGenderSelect" data-gender="male">男</view>
+        <view class="gender-btn {{gender === 'female' ? 'active' : ''}}" bindtap="onGenderSelect" data-gender="female">女</view>
+      </view>
+    </view>
+    <view class="form-item">
+      <text class="form-label">身高 (cm)</text>
+      <input class="form-input" value="{{height}}" type="number" placeholder="请输入身高" placeholder-style="color: rgba(255,255,255,0.3);" bindinput="onHeightInput" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">体重 (kg)</text>
+      <input class="form-input" value="{{weight}}" type="digit" placeholder="请输入体重" placeholder-style="color: rgba(255,255,255,0.3);" bindinput="onWeightInput" />
+    </view>
+  </view>
+
+  <view class="submit-btn" bindtap="onSubmit">
+    <text class="submit-text">{{submitting ? '提交中...' : (isEdit ? '保存' : '开始使用')}}</text>
+  </view>
+</view>
