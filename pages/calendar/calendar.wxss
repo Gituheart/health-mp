@@ -1,0 +1,135 @@
+.container {
+  padding: 48rpx 32rpx;
+  min-height: 100vh;
+}
+
+/* 月份导航 */
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32rpx;
+}
+
+.nav-btn {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-arrow {
+  font-size: 36rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.month-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* 月统计 */
+.month-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2rpx solid rgba(255, 255, 255, 0.1);
+  border-radius: 16rpx;
+  padding: 28rpx 0;
+  margin-bottom: 36rpx;
+}
+
+.summary-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex: 1;
+}
+
+.summary-num {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #00E676;
+  margin-right: 8rpx;
+}
+
+.summary-label {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.summary-divider {
+  width: 2rpx;
+  height: 48rpx;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* 星期标头 */
+.weekday-row {
+  display: flex;
+  margin-bottom: 16rpx;
+}
+
+.weekday {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* 日历 */
+.calendar-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.day-cell {
+  width: 14.2857%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 96rpx;
+  position: relative;
+}
+
+.day-cell.empty {
+  visibility: hidden;
+}
+
+.day-num {
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.day-cell.today .day-num {
+  color: #fff;
+  font-weight: bold;
+}
+
+.day-cell.checked .day-num {
+  color: #00E676;
+  font-weight: bold;
+}
+
+.day-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: #00E676;
+  margin-top: 4rpx;
+}
+
+.day-cell.today {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12rpx;
+}
+
+.day-cell.checked.today {
+  background: rgba(0, 230, 118, 0.12);
+}
