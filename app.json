@@ -1,0 +1,55 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/checkin/checkin",
+    "pages/pk/pk",
+    "pages/profile/profile",
+    "pages/userinfo/userinfo",
+    "pages/report/report",
+    "pages/report-detail/report-detail",
+    "pages/pk-detail/pk-detail",
+    "pages/calendar/calendar",
+    "pages/stats/stats"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0F1923",
+    "navigationBarTitleText": "柳活力周",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0F1923"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#00E676",
+    "backgroundColor": "#0F1923",
+    "borderStyle": "black",
+    "fontSize": 12,
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_active.png"
+      },
+      {
+        "pagePath": "pages/checkin/checkin",
+        "text": "打卡",
+        "iconPath": "images/checkin.png",
+        "selectedIconPath": "images/checkin_active.png"
+      },
+      {
+        "pagePath": "pages/pk/pk",
+        "text": "家庭群",
+        "iconPath": "images/pk.png",
+        "selectedIconPath": "images/pk_active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}
