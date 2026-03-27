@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{!loading}}">
+    <!-- 报告图片 -->
+    <view class="images-section">
+      <scroll-view class="images-scroll" scroll-x>
+        <image
+          class="report-img"
+          wx:for="{{imageUrls}}"
+          wx:key="*this"
+          src="{{item}}"
+          mode="aspectFill"
+          bindtap="previewImage"
+          data-url="{{item}}"
+        />
+      </scroll-view>
+    </view>
+
+    <!-- AI 分析结果 -->
+    <view class="analysis-section" wx:if="{{analysis}}">
+      <view class="analysis-header">
+        <text class="analysis-icon">🤖</text>
+        <text class="analysis-title">AI 分析结果</text>
+      </view>
+      <view class="analysis-content">
+        <rich-text nodes="{{analysisHtml}}"></rich-text>
+      </view>
+    </view>
+
+    <!-- 免责声明 -->
+    <view class="disclaimer">
+      <text class="disclaimer-text">以上分析由 AI 生成，仅供参考，不构成医疗诊断。如有不适请及时就医。</text>
+    </view>
+  </block>
+</view>
