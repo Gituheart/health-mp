@@ -1,0 +1,89 @@
+<view class="container">
+  <view class="loading" wx:if="{{!inited}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{inited}}">
+    <!-- 本周 -->
+    <view class="stats-card">
+      <text class="card-title">本周</text>
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-num green">{{weekStats.calories}}</text>
+          <text class="stat-label">千卡</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{weekStats.days}}</text>
+          <text class="stat-label">天</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{weekStats.count}}</text>
+          <text class="stat-label">次</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{weekStats.minutes}}</text>
+          <text class="stat-label">分钟</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 本月 -->
+    <view class="stats-card">
+      <text class="card-title">本月</text>
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-num green">{{monthStats.calories}}</text>
+          <text class="stat-label">千卡</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{monthStats.days}}</text>
+          <text class="stat-label">天</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{monthStats.count}}</text>
+          <text class="stat-label">次</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{monthStats.minutes}}</text>
+          <text class="stat-label">分钟</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 累计 -->
+    <view class="stats-card">
+      <text class="card-title">累计</text>
+      <view class="stats-grid">
+        <view class="stat-item">
+          <text class="stat-num green">{{totalStats.calories}}</text>
+          <text class="stat-label">千卡</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{totalStats.days}}</text>
+          <text class="stat-label">天</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{totalStats.count}}</text>
+          <text class="stat-label">次</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{totalStats.minutes}}</text>
+          <text class="stat-label">分钟</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 运动排行 -->
+    <view class="stats-card" wx:if="{{topExercises.length > 0}}">
+      <text class="card-title">最爱运动 TOP5</text>
+      <view class="exercise-list">
+        <view class="exercise-item" wx:for="{{topExercises}}" wx:key="name">
+          <text class="exercise-rank">{{index + 1}}</text>
+          <text class="exercise-name">{{item.name}}</text>
+          <text class="exercise-count">{{item.count}} 次</text>
+          <text class="exercise-cal">{{item.calories}} 千卡</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
