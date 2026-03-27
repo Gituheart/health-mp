@@ -1,0 +1,75 @@
+<view class="container">
+  <!-- 连续打卡 -->
+  <view class="streak-bar" wx:if="{{streak > 0}}">
+    <text class="streak-fire">🔥</text>
+    <text class="streak-text">连续打卡 {{streak}} 天</text>
+  </view>
+
+  <!-- 运动类型 -->
+  <view class="section">
+    <text class="section-title">选择运动</text>
+    <view class="type-grid">
+      <view
+        class="type-item {{selectedType === item.name ? 'active' : ''}}"
+        wx:for="{{exerciseTypes}}"
+        wx:key="name"
+        bindtap="onSelectType"
+        data-name="{{item.name}}"
+        data-met="{{item.met}}"
+      >
+        <text class="type-emoji">{{item.emoji}}</text>
+        <text class="type-name">{{item.name}}</text>
+        <text class="type-met">{{item.met}} MET</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 运动时长 -->
+  <view class="section">
+    <text class="section-title">运动时长（分钟）</text>
+    <view class="duration-row">
+      <view
+        class="duration-btn {{duration === item ? 'active' : ''}}"
+        wx:for="{{[15, 30, 45, 60]}}"
+        wx:key="*this"
+        bindtap="onSelectDuration"
+        data-val="{{item}}"
+      >{{item}}</view>
+    </view>
+    <view class="custom-input-row">
+      <input
+        class="custom-input"
+        type="number"
+        value="{{customDuration}}"
+        placeholder="自定义分钟数"
+        placeholder-style="color: rgba(255,255,255,0.3);"
+        bindinput="onCustomDurationInput"
+      />
+    </view>
+  </view>
+
+  <!-- 卡路里 -->
+  <view class="calorie-ring" wx:if="{{selectedType && duration}}">
+    <view class="ring-inner">
+      <text class="calorie-num">{{calories}}</text>
+      <text class="calorie-unit">千卡</text>
+    </view>
+  </view>
+
+  <!-- 提交 -->
+  <view class="submit-btn {{(!selectedType || !duration) ? 'disabled' : ''}}" bindtap="onSubmit">
+    <text class="submit-text">{{submitting ? '提交中...' : '完成打卡'}}</text>
+  </view>
+
+  <!-- 今日记录 -->
+  <view class="section" wx:if="{{todayRecords.length > 0}}">
+    <text class="section-title">今日记录</text>
+    <view class="record-item" wx:for="{{todayRecords}}" wx:key="_id">
+      <view class="record-left">
+        <text class="record-type">{{item.exercise_type}}</text>
+        <text class="record-time">{{item.duration_min}} 分钟</text>
+      </view>
+      <text class="record-cal">{{item.calories}} 千卡</text>
+    </view>
+  </view>
+</view>
