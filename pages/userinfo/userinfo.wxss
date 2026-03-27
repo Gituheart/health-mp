@@ -1,0 +1,94 @@
+.container {
+  padding: 64rpx 40rpx;
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 64rpx;
+}
+
+.title {
+  display: block;
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.title-green {
+  display: block;
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #00E676;
+  margin-top: 4rpx;
+}
+
+.desc {
+  display: block;
+  font-size: 32rpx;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 20rpx;
+}
+
+.form {
+  margin-bottom: 64rpx;
+}
+
+.form-item {
+  margin-bottom: 36rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16rpx;
+}
+
+.form-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 2rpx solid rgba(255, 255, 255, 0.1);
+  border-radius: 16rpx;
+  padding: 32rpx;
+  font-size: 36rpx;
+  color: #fff;
+}
+
+.gender-row {
+  display: flex;
+}
+
+.gender-btn {
+  flex: 1;
+  text-align: center;
+  padding: 28rpx 0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2rpx solid rgba(255, 255, 255, 0.1);
+  font-size: 34rpx;
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 20rpx;
+  border-radius: 16rpx;
+}
+
+.gender-btn:last-child {
+  margin-right: 0;
+}
+
+.gender-btn.active {
+  background: rgba(0, 230, 118, 0.15);
+  border-color: #00E676;
+  color: #00E676;
+  font-weight: bold;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #00E676, #00C853);
+  border-radius: 20rpx;
+  padding: 40rpx;
+  text-align: center;
+}
+
+.submit-text {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #0F1923;
+}
