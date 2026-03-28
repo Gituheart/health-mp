@@ -16,11 +16,23 @@
         bindtap="onSelectType"
         data-name="{{item.name}}"
         data-met="{{item.met}}"
+        data-custom="{{item.custom}}"
       >
         <text class="type-emoji">{{item.emoji}}</text>
         <text class="type-name">{{item.name}}</text>
         <text class="type-met">{{item.met}} MET</text>
       </view>
+    </view>
+    <!-- 自定义运动名称输入 -->
+    <view class="custom-type-row" wx:if="{{isCustomType}}">
+      <input
+        class="custom-input"
+        value="{{customTypeName}}"
+        placeholder="输入运动名称，如：爬山、游泳"
+        placeholder-style="color: rgba(255,255,255,0.3);"
+        bindinput="onCustomTypeInput"
+        maxlength="10"
+      />
     </view>
   </view>
 
@@ -56,8 +68,21 @@
     </view>
   </view>
 
+  <!-- 打卡凭证照片 -->
+  <view class="section">
+    <text class="section-title">打卡凭证（可选）</text>
+    <view class="photo-area" wx:if="{{!mediaUrl}}" bindtap="onChoosePhoto">
+      <text class="photo-icon">📷</text>
+      <text class="photo-hint">{{mediaUploading ? '上传中...' : '拍照或从相册选择'}}</text>
+    </view>
+    <view class="photo-preview" wx:if="{{mediaUrl}}">
+      <image class="preview-img" src="{{mediaUrl}}" mode="aspectFill" />
+      <view class="photo-remove" bindtap="onRemovePhoto">✕</view>
+    </view>
+  </view>
+
   <!-- 提交 -->
-  <view class="submit-btn {{(!selectedType || !duration) ? 'disabled' : ''}}" bindtap="onSubmit">
+  <view class="submit-btn {{(!selectedType || !duration || mediaUploading) ? 'disabled' : ''}}" bindtap="onSubmit">
     <text class="submit-text">{{submitting ? '提交中...' : '完成打卡'}}</text>
   </view>
 
@@ -66,7 +91,10 @@
     <text class="section-title">今日记录</text>
     <view class="record-item" wx:for="{{todayRecords}}" wx:key="_id">
       <view class="record-left">
-        <text class="record-type">{{item.exercise_type}}</text>
+        <view class="record-type-row">
+          <text class="record-type">{{item.exercise_type}}</text>
+          <text class="record-photo-tag" wx:if="{{item.media_url}}">📷</text>
+        </view>
         <text class="record-time">{{item.duration_min}} 分钟</text>
       </view>
       <text class="record-cal">{{item.calories}} 千卡</text>
