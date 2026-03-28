@@ -62,6 +62,10 @@ Page({
     this.setData({ bmi: String(bmiRound), bmiLabel, bodyFat, bodyFatLevel })
   },
 
+  goRehab() {
+    wx.navigateTo({ url: '/pages/rehab/rehab' })
+  },
+
   goUserInfo() {
     wx.navigateTo({ url: '/pages/userinfo/userinfo?edit=1' })
   },
