@@ -45,6 +45,10 @@
     - [x] 展开/收起详细步骤 + 注意事项
     - [x] 单独标记完成 + 记录为打卡
     - [x] 入口：我的 → 康复训练计划
+  - [x] Bug Fix
+    - [x] checkin.js：onSubmit 补充防重复提交守卫
+    - [x] checkin.wxml：提交按钮 disabled 状态补充 submitting
+    - [x] dashboard.js：云函数失败时 inited 未置 true 导致页面无限 loading
 - [ ] v1.1.0 提审上线（Phase 5）
   - [ ] 云函数重新部署（familyGroup 新增 getMemberStats）
   - [ ] 腾讯云 API Key 轮换 + 云函数环境变量更新
