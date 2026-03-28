@@ -1,0 +1,102 @@
+<view class="container">
+  <!-- 头部进度 -->
+  <view class="progress-header">
+    <view class="progress-info">
+      <text class="progress-title">今日康复训练</text>
+      <text class="progress-sub">针对膝关节问题专项方案</text>
+    </view>
+    <view class="progress-circle">
+      <text class="progress-num">{{doneCount}}</text>
+      <text class="progress-total">/{{exercises.length}}</text>
+    </view>
+  </view>
+
+  <!-- 免责提示 -->
+  <view class="disclaimer-bar">
+    <text class="disclaimer-text">⚠️ 训练前请热身，如有疼痛加剧请立即停止并咨询医生</text>
+  </view>
+
+  <!-- 动作列表 -->
+  <view class="exercise-list">
+    <view
+      class="exercise-card {{item.done ? 'done' : ''}}"
+      wx:for="{{exercises}}"
+      wx:key="id"
+    >
+      <!-- 卡片头部（点击展开/收起） -->
+      <view class="card-header" bindtap="toggleExpand" data-id="{{item.id}}">
+        <view class="card-left">
+          <text class="ex-emoji">{{item.emoji}}</text>
+          <view class="ex-title-col">
+            <text class="ex-name">{{item.name}}</text>
+            <text class="ex-target">{{item.target}}</text>
+          </view>
+        </view>
+        <view class="card-right">
+          <text class="ex-done-tag" wx:if="{{item.done}}">✓</text>
+          <text class="expand-icon">{{item.expanded ? '▲' : '▼'}}</text>
+        </view>
+      </view>
+
+      <!-- 处方 -->
+      <view class="prescription-row">
+        <text class="prescription-text">📋 {{item.prescription}}</text>
+      </view>
+
+      <!-- 展开内容 -->
+      <view class="card-body" wx:if="{{item.expanded}}">
+        <view class="steps-section">
+          <text class="steps-title">动作要领</text>
+          <view class="step-item" wx:for="{{item.steps}}" wx:key="*this" wx:for-item="step" wx:for-index="si">
+            <text class="step-num">{{si + 1}}</text>
+            <text class="step-text">{{step}}</text>
+          </view>
+        </view>
+        <view class="caution-row">
+          <text class="caution-text">⚠️ {{item.caution}}</text>
+        </view>
+      </view>
+
+      <!-- 完成按钮 -->
+      <view
+        class="done-btn {{item.done ? 'done-active' : ''}}"
+        bindtap="toggleDone"
+        data-id="{{item.id}}"
+      >
+        <text class="done-btn-text">{{item.done ? '✓ 已完成' : '标记完成'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部打卡按钮 -->
+  <view class="checkin-bar" wx:if="{{doneCount > 0}}">
+    <view class="checkin-summary">
+      <text class="checkin-summary-text">完成 {{doneCount}} 个动作</text>
+    </view>
+    <view class="checkin-btn" bindtap="showPicker">
+      <text class="checkin-btn-text">记录为打卡</text>
+    </view>
+  </view>
+
+  <!-- 时长选择弹窗 -->
+  <view class="modal-mask" wx:if="{{showDurationPicker}}" bindtap="hidePicker">
+    <view class="modal-content" catchtap="">
+      <text class="modal-title">训练时长</text>
+      <view class="duration-options">
+        <view
+          class="duration-opt {{selectedDuration === item ? 'active' : ''}}"
+          wx:for="{{[15, 20, 30, 40, 45, 60]}}"
+          wx:key="*this"
+          bindtap="onSelectDuration"
+          data-val="{{item}}"
+        >{{item}} 分钟</view>
+      </view>
+      <view class="modal-actions">
+        <view class="modal-btn cancel" bindtap="hidePicker">取消</view>
+        <view class="modal-btn confirm {{submitting ? 'disabled' : ''}}" bindtap="confirmCheckin">
+          {{submitting ? '记录中...' : '确认打卡'}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
