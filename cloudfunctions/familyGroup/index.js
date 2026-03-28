@@ -137,6 +137,104 @@ exports.main = async (event) => {
     }
   }
 
+  if (action === 'getMemberStats') {
+    const { groupId, targetOpenid } = event
+
+    let group
+    try {
+      const res = await db.collection('family_groups').doc(groupId).get()
+      group = res.data
+    } catch (e) {
+      return { success: false, error: '群组不存在' }
+    }
+
+    if (!group.members.includes(openid)) {
+      return { success: false, error: '无权限查看' }
+    }
+    if (!group.members.includes(targetOpenid)) {
+      return { success: false, error: '该成员不在群中' }
+    }
+
+    const formatDate = (d) =>
+      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+
+    const now = new Date()
+    const todayStr = formatDate(now)
+    const cutoff = new Date(now)
+    cutoff.setDate(cutoff.getDate() - 29)
+    const cutoffStr = formatDate(cutoff)
+
+    const { data: checkins } = await db.collection('checkins')
+      .where({ _openid: targetOpenid, date: _.gte(cutoffStr) })
+      .get()
+
+    // 按天聚合
+    const dayMap = {}
+    for (const c of checkins) {
+      if (!dayMap[c.date]) dayMap[c.date] = { calories: 0, count: 0 }
+      dayMap[c.date].calories += c.calories || 0
+      dayMap[c.date].count += 1
+    }
+
+    // 最近 7 天柱状图数据
+    const weekdays = ['日', '一', '二', '三', '四', '五', '六']
+    const last7 = []
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now)
+      d.setDate(d.getDate() - i)
+      const dateStr = formatDate(d)
+      last7.push({
+        date: dateStr,
+        label: i === 0 ? '今' : weekdays[d.getDay()],
+        calories: (dayMap[dateStr] || {}).calories || 0,
+        hasCheckin: !!dayMap[dateStr]
+      })
+    }
+
+    // 本周统计
+    const day = now.getDay()
+    const diff = day === 0 ? -6 : 1 - day
+    const monday = new Date(now)
+    monday.setDate(now.getDate() + diff)
+    monday.setHours(0, 0, 0, 0)
+    const mondayStr = formatDate(monday)
+
+    let weekCalories = 0, weekDays = 0
+    for (const [date, val] of Object.entries(dayMap)) {
+      if (date >= mondayStr && date <= todayStr) {
+        weekCalories += val.calories
+        weekDays++
+      }
+    }
+
+    // 连续打卡
+    let streak = 0
+    for (let i = 0; i < 30; i++) {
+      const d = new Date(now)
+      d.setDate(d.getDate() - i)
+      const dateStr = formatDate(d)
+      if (dayMap[dateStr]) {
+        streak++
+      } else {
+        if (i === 0) continue
+        break
+      }
+    }
+
+    const { data: users } = await db.collection('users').where({ openid: targetOpenid }).get()
+    const userInfo = users[0] || {}
+
+    return {
+      success: true,
+      userInfo: { nickname: userInfo.nickname || '未知用户', avatarUrl: userInfo.avatarUrl || '' },
+      todayChecked: !!dayMap[todayStr],
+      weekCalories,
+      weekDays,
+      streak,
+      last7
+    }
+  }
+
   if (action === 'quit') {
     const { groupId } = event
 
