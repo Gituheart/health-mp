@@ -10,7 +10,8 @@
     "pages/pk-detail/pk-detail",
     "pages/calendar/calendar",
     "pages/stats/stats",
-    "pages/dashboard/dashboard"
+    "pages/dashboard/dashboard",
+    "pages/rehab/rehab"
   ],
   "window": {
     "navigationBarBackgroundColor": "#0F1923",
