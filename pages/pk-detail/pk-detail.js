@@ -61,6 +61,13 @@ Page({
     this.setData({ inited: true, refreshing: false })
   },
 
+  viewMember(e) {
+    const { openid, nickname } = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/dashboard/dashboard?groupId=${this.groupId}&openid=${openid}&nickname=${encodeURIComponent(nickname)}`
+    })
+  },
+
   copyGroupId() {
     wx.setClipboardData({
       data: this.groupId,
