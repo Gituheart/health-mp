@@ -9,7 +9,8 @@
     "pages/report-detail/report-detail",
     "pages/pk-detail/pk-detail",
     "pages/calendar/calendar",
-    "pages/stats/stats"
+    "pages/stats/stats",
+    "pages/dashboard/dashboard"
   ],
   "window": {
     "navigationBarBackgroundColor": "#0F1923",
