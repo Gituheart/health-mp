@@ -35,6 +35,9 @@
           class="rank-item {{item.openid === currentOpenid ? 'is-me' : ''}}"
           wx:for="{{leaderboard}}"
           wx:key="openid"
+          bindtap="viewMember"
+          data-openid="{{item.openid}}"
+          data-nickname="{{item.nickname}}"
         >
           <view class="rank-num">
             <text wx:if="{{item.medal}}" class="rank-medal">{{item.medal}}</text>
