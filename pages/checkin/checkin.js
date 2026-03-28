@@ -99,6 +99,7 @@ Page({
   },
 
   async onSubmit() {
+    if (this.data.submitting) return
     const { selectedType, isCustomType, customTypeName, duration, calories, selectedMet, mediaUrl } = this.data
     const finalType = isCustomType ? (customTypeName.trim() || '自定义运动') : selectedType
     if (!selectedType || !duration) return
