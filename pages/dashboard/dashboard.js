@@ -33,6 +33,7 @@ Page({
 
       if (!result.success) {
         wx.showToast({ title: result.error || '加载失败', icon: 'none' })
+        this.setData({ inited: true })
         return
       }
 
