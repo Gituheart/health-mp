@@ -82,7 +82,7 @@
   </view>
 
   <!-- 提交 -->
-  <view class="submit-btn {{(!selectedType || !duration || mediaUploading) ? 'disabled' : ''}}" bindtap="onSubmit">
+  <view class="submit-btn {{(!selectedType || !duration || mediaUploading || submitting) ? 'disabled' : ''}}" bindtap="onSubmit">
     <text class="submit-text">{{submitting ? '提交中...' : '完成打卡'}}</text>
   </view>
 
