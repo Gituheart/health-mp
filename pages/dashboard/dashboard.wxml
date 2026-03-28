@@ -1,0 +1,62 @@
+<view class="container">
+  <view class="loading" wx:if="{{!inited}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <block wx:if="{{inited}}">
+    <!-- 今日状态 -->
+    <view class="today-card {{todayChecked ? 'checked' : 'missed'}}">
+      <view class="today-left">
+        <text class="today-icon">{{todayChecked ? '✅' : '⚠️'}}</text>
+        <view class="today-info">
+          <text class="today-title">{{nickname}}</text>
+          <text class="today-sub">{{todayChecked ? '今天已打卡' : '今天还没打卡'}}</text>
+        </view>
+      </view>
+      <text class="today-streak" wx:if="{{streak > 0}}">🔥 {{streak}} 天</text>
+    </view>
+
+    <!-- 本周汇总 -->
+    <view class="stats-row">
+      <view class="stat-card">
+        <text class="stat-num">{{weekCalories}}</text>
+        <text class="stat-label">本周千卡</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-num">{{weekDays}}</text>
+        <text class="stat-label">本周打卡天</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-num">{{streak}}</text>
+        <text class="stat-label">连续天数</text>
+      </view>
+    </view>
+
+    <!-- 7 天柱状图 -->
+    <view class="chart-section">
+      <text class="section-title">近 7 天运动</text>
+      <view class="bar-chart">
+        <view class="bar-col" wx:for="{{last7}}" wx:key="date">
+          <view class="bar-wrapper">
+            <text class="bar-cal" wx:if="{{item.calories > 0}}">{{item.calories}}</text>
+            <view
+              class="bar {{item.hasCheckin ? 'bar-active' : 'bar-empty'}} {{item.label === '今' ? 'bar-today' : ''}}"
+              style="height: {{item.barHeight}}%;"
+            ></view>
+          </view>
+          <text class="bar-label {{item.label === '今' ? 'bar-label-today' : ''}}">{{item.label}}</text>
+        </view>
+      </view>
+      <view class="chart-legend">
+        <view class="legend-item">
+          <view class="legend-dot active"></view>
+          <text class="legend-text">已打卡</text>
+        </view>
+        <view class="legend-item">
+          <view class="legend-dot missed"></view>
+          <text class="legend-text">未打卡</text>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
